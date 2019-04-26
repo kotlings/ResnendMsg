@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yellow_8902">#FE8902</color>
+    <color name="gray_8888">#888888</color>
+
+
+    <color name="login_get_ver_code">@color/yellow_8902</color>  <!--获取验证码颜色 -->
+    <color name="login_resend_ver_code">@color/gray_8888</color> <!--重新发送颜色-->
+    <color name="login_enable_ver_code">@color/gray_8888</color> <!--不能点击的颜色-->
+
+</resources>
