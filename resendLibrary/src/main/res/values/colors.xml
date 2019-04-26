@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="yellow_8902">#FE8902</color>
-    <color name="gray_8888">#888888</color>
-
-
-    <color name="login_get_ver_code">@color/yellow_8902</color>  <!--获取验证码颜色 -->
-    <color name="login_resend_ver_code">@color/gray_8888</color> <!--重新发送颜色-->
-    <color name="login_enable_ver_code">@color/gray_8888</color> <!--不能点击的颜色-->
-
+	<color name="yellow_8902">#FE8902</color>
+	<color name="gray_8888">#888888</color>
+	
+	<color name="login_get_ver_code">@color/yellow_8902</color>  <!--获取验证码颜色 -->
+	<color name="login_resend_ver_code">@color/gray_8888</color> <!--重新发送颜色-->
+	<color name="login_enable_ver_code">@color/gray_8888</color> <!--不能点击的颜色-->
+	
+	<!--不透明度(ps:可以理解为alpha:0-1的值)-->
+	<!--百分比-开头字母-->
+	<!--100% —FF-->
+	<!--95% — F2-->
+	<!--90% — E6-->
+	<!--85% — D9-->
+	<!--80% — CC-->
+	<!--75% — BF-->
+	<!--70% — B3-->
+	<!--65% — A6-->
+	<!--60% — 99-->
+	<!--55% — 8C-->
+	<!--50% — 80-->
+	<!--45% — 73-->
+	<!--40% — 66-->
+	<!--35% — 59-->
+	<!--30% — 4D-->
+	<!--25% — 40-->
+	<!--20% — 33-->
+	<!--15% — 26-->
+	<!--10% — 1A-->
+	<!--5% — 0D-->
+	<!--0% — 00-->
+	
+	<color name="gray_e1e1">#E1E1E1</color>
+	
+	<color name="gray_adb0">#ADADB0</color>
+	
+	<color name="transparent">#00000000</color> <!-- 透明色 -->
+	<!--白色-->
+	<color name="white">#FFFFFF</color>
+	<color name="black">#000000</color>
+	<color name="app_white">#ffffff</color>
+	<color name="app_black">#000000</color>
+	<color name="app_orage">#FF8907</color>
+	
+	
+	<color name="front_gray">@color/gray_adb0</color>
+	<color name="front_hint_gray">@color/gray_8888</color>
 </resources>

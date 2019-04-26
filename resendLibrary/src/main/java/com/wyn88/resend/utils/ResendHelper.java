@@ -11,19 +11,32 @@ import com.wyn88.resend.R;
  */
 public class ResendHelper {
 
+    private TextView textView;
+
+
+    public ResendHelper(TextView textView) {
+        this.textView = textView;
+    }
+
+
+    public void setText(String text) {
+        this.textView.setText(text);
+    }
+
+
     /**
-     * 重新获取验证码（验证码倒计时）
+     * 倒计时完成，重新获取验证码（验证码倒计时）
      *
-     * @param textView
+     * @param
      */
-    public static void resend(TextView textView) {
+    public void resend() {
         textView.setClickable(true);
         textView.setTextColor(textView.getContext().getResources().getColor(R.color.login_resend_ver_code));
 //        textView.setBackgroundResource(R.drawable.bg_login_vercode_resend_shape);
     }
 
 
-    public static void resend(TextView textView, int textColor, @DrawableRes int textRes) {
+    public void resend(int textColor, @DrawableRes int textRes) {
         textView.setClickable(true);
         if (textRes != 0) {
             textView.setBackgroundResource(textRes);
@@ -34,14 +47,20 @@ public class ResendHelper {
     }
 
 
-    public static void resendUpdate(TextView textView) {
+    /**
+     * 倒计时过程更新状态
+     *
+     * @param
+     */
+
+    public void resendUpdate() {
         textView.setClickable(false);
         textView.setTextColor(textView.getContext().getResources().getColor(R.color.login_resend_ver_code));
 //        textView.setBackgroundResource(R.drawable.bg_login_vercode_resend_shape);
     }
 
 
-    public static void resendUpdate(TextView textView, int textColor, @DrawableRes int textRes) {
+    public void resendUpdate(int textColor, @DrawableRes int textRes) {
         textView.setClickable(false);
         if (textRes != 0) {
             textView.setBackgroundResource(textRes);
@@ -53,17 +72,17 @@ public class ResendHelper {
 
 
     /**
-     * 不可点击
+     * 不可点击状态
      *
-     * @param textView
+     * @param
      */
-    public static void enable(TextView textView) {
+    public void enable() {
         textView.setClickable(false);
         textView.setTextColor(textView.getContext().getResources().getColor(R.color.login_enable_ver_code));
 //        textView.setBackgroundResource(R.drawable.bg_login_vercode_disabled_shape);
     }
 
-    public static void enable(TextView textView, int textColor, @DrawableRes int textRes) {
+    public void enable(TextView textView, int textColor, @DrawableRes int textRes) {
         textView.setClickable(false);
         if (textRes != 0) {
             textView.setBackgroundResource(textRes);
@@ -77,16 +96,16 @@ public class ResendHelper {
     /**
      * 可点击（获取验证码）
      *
-     * @param textView
+     * @param
      */
-    public static void getCode(TextView textView) {
+    public void getCode() {
         textView.setClickable(true);
         textView.setTextColor(textView.getContext().getResources().getColor(R.color.login_get_ver_code));
 //        textView.setBackgroundResource(R.drawable.bg_login_vercode_checked_shape);
     }
 
 
-    public static void getCode(TextView textView, int textColor, @DrawableRes int textRes) {
+    public void getCode(int textColor, @DrawableRes int textRes) {
         textView.setClickable(true);
         if (textRes != 0) {
             textView.setBackgroundResource(textRes);

@@ -135,6 +135,13 @@ public class ClearableEditText extends RelativeLayout
         return mEditText.getText().toString().trim();
     }
 
+
+    public void setmEditText(String s){
+
+        mEditText.setText(s);
+    }
+
+
     public void setClearDrawable(@DrawableRes int drawable) {
         mIvClear.setImageResource(drawable);
     }
