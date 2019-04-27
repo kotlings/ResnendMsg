@@ -10,6 +10,7 @@ import com.wyn88.resend.imp.Conditions
 import com.wyn88.resend.utils.ResendHelper
 import com.wyn88.resend.utils.ViewStateHelper
 import com.wyn88.resend.weight.ClearableEditText
+import com.wyn88.resendmessage.weight.HttpingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity(), Conditions {
         )
 
 
-        resendHelper = ResendHelper().init(tvSend)
+//        resendHelper = ResendHelper().init(tvSend)
         initEvent()
 
     }
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity(), Conditions {
             }
             //TODO 网络请求部分
 
-
+            setCountDown()
         }
 
     }
@@ -99,21 +100,27 @@ class MainActivity : AppCompatActivity(), Conditions {
 
     private fun setCountDown() {
 
+        val httpingDialog = HttpingDialog(this, false)
+        try {
+            httpingDialog.show()
+            Thread.sleep(2000)
+            httpingDialog.dismiss()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        } finally {
+            counter = Counter.create(handler, 60, 0, -1, 1000, object : Counter.Listener {
+                override fun update(count: Int) {
+                    tvSend.text = String.format("重新获取(%s)", count.toString())
+                    resendHelper!!.resendUpdate(0, R.drawable.bg_btn_gray_full_14_shape)
+                }
 
-
-        counter = Counter.create(handler, 60, 0, -1, 1000, object : Counter.Listener {
-            override fun update(count: Int) {
-                tvSend.text = String.format("重新获取(%s)", count.toString())
-                resendHelper!!.resendUpdate(0, R.drawable.bg_btn_gray_full_14_shape)
-            }
-
-            override fun complete() {
-                tvSend.text = "重新获取"
-                resendHelper!!.getCode(0, R.drawable.bg_btn_orange_full_14_shape)
-            }
-        })
-
-        counter.start()
+                override fun complete() {
+                    tvSend.text = "重新获取"
+                    resendHelper!!.getCode(0, R.drawable.bg_btn_orange_full_14_shape)
+                }
+            })
+            counter.start()
+        }
     }
 
 
