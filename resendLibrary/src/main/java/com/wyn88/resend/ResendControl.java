@@ -22,38 +22,45 @@ public class ResendControl {
 
     int textColor;
     @DrawableRes
-    int textBackground;
+    int selectBackground;
+
+    @DrawableRes
+    int enableBackground;
+    EditText editText;
+
+    private String tmpNum;//记录上次号码
+
+    private boolean isCountDown;//倒计时清除手机号码标识
 
     public ResendControl(TextView textView, EditText editText) {
         resendHelper = new ResendHelper(textView);
-
-
+        this.editText = editText;
     }
 
 
-    public void injectAttr(int textColor, int textBackground) {
+    public void injectStyle(int textColor, int light, int dark) {
         this.textColor = textColor;
-        this.textBackground = textBackground;
+        this.selectBackground = light;
+        this.enableBackground = dark;
 
     }
 
 
-    private void setCountDown() {
+    public void startCountDown() {
 
         //TODO 倒计时过程中删除号码也不打断倒计时
-
-        String tmp = "";
+        String temp = "";
         counter = Counter.create(handler, 60, 0, -1, 1000, new Counter.Listener() {
             @Override
             public void update(int count) {
                 resendHelper.setText(String.format("重新获取(%s)", String.valueOf(count)));
-                resendHelper.resendUpdate(textColor, textBackground == 0 ? R.drawable.bg_btn_gray_full_14_shape : textBackground);
+                resendHelper.resendUpdate(textColor, enableBackground == 0 ? R.drawable.bg_btn_gray_full_14_shape : enableBackground);
             }
 
             @Override
             public void complete() {
                 resendHelper.setText("重新获取");
-                resendHelper.getCode(textColor, textBackground == 0 ? R.drawable.bg_btn_orange_full_14_shape : textBackground);
+                resendHelper.getCode(textColor, selectBackground == 0 ? R.drawable.bg_btn_orange_full_14_shape : selectBackground);
             }
         });
 
@@ -65,7 +72,6 @@ public class ResendControl {
         if (counter != null) {
             counter.stop();
         }
-
     }
 
 

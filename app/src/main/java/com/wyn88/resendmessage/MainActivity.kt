@@ -2,12 +2,12 @@ package com.wyn88.resendmessage
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.wyn88.resend.Counter
+import com.wyn88.resend.ResendControl
 import com.wyn88.resend.imp.Conditions
-import com.wyn88.resend.utils.ResendHelper
 import com.wyn88.resend.utils.ViewStateHelper
 import com.wyn88.resend.weight.ClearableEditText
 import com.wyn88.resendmessage.weight.HttpingDialog
@@ -28,22 +28,25 @@ class MainActivity : AppCompatActivity(), Conditions {
     private lateinit var edtCode: ClearableEditText
     private lateinit var tvSend: TextView
     private lateinit var tvNext: TextView
+    private var httpDialog: HttpingDialog? = null
 
-    private lateinit var counter: Counter
+    companion object {
+        const val HINT_DIALOG = 0X00034
+    }
 
-    var resendHelper: ResendHelper? = null
 
-    val handler = Handler(Handler.Callback { msg ->
+    var resendControl: ResendControl? = null
+
+    private val handler = Handler(Handler.Callback { msg ->
         when (msg.what) {
-            1 -> ""
-            2 -> ""
-            3 -> ""
-            4 -> ""
+            HINT_DIALOG -> {
+                httpDialog!!.dismiss()
+                setCountDown()
+            }
             else -> {
-
+                Log.e(TAG, "default....")
             }
         }
-
         false
     })
 
@@ -76,56 +79,33 @@ class MainActivity : AppCompatActivity(), Conditions {
             etPhone.editText
         )
 
-
-//        resendHelper = ResendHelper().init(tvSend)
         initEvent()
-
     }
 
-    fun initEvent() {
+    private fun initEvent() {
 
         tvSend.setOnClickListener {
-
             if (etPhone.text.toString().isEmpty()) {
                 Toast.makeText(this, "验证码不能为空", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            //TODO 网络请求部分
-
-            setCountDown()
+            getData()
         }
-
     }
 
+    private fun getData() {
+        httpDialog = HttpingDialog(this, false)
+        httpDialog!!.show()
+        handler.sendEmptyMessageDelayed(HINT_DIALOG, 3000)
+    }
 
     private fun setCountDown() {
-
-        val httpingDialog = HttpingDialog(this, false)
-        try {
-            httpingDialog.show()
-            Thread.sleep(2000)
-            httpingDialog.dismiss()
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        } finally {
-            counter = Counter.create(handler, 60, 0, -1, 1000, object : Counter.Listener {
-                override fun update(count: Int) {
-                    tvSend.text = String.format("重新获取(%s)", count.toString())
-                    resendHelper!!.resendUpdate(0, R.drawable.bg_btn_gray_full_14_shape)
-                }
-
-                override fun complete() {
-                    tvSend.text = "重新获取"
-                    resendHelper!!.getCode(0, R.drawable.bg_btn_orange_full_14_shape)
-                }
-            })
-            counter.start()
-        }
+        resendControl = ResendControl(tvSend, etPhone.editText)
+        resendControl!!.startCountDown()
     }
 
 
     override fun checkState(): Boolean {
-
         val smsCode = etPhone.text.toString()
         return smsCode.isNotEmpty()
     }
