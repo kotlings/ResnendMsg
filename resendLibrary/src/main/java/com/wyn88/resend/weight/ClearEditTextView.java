@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
  * Created by zxj on 2018/11/29.
  */
 
-public class ClearableEditText extends RelativeLayout
+public class ClearEditTextView extends RelativeLayout
         implements View.OnFocusChangeListener, View.OnClickListener {
 
     private EditText mEditText;
@@ -37,25 +37,25 @@ public class ClearableEditText extends RelativeLayout
         this.callBack = callBack;
     }
 
-    public ClearableEditText(@NonNull Context context) {
+    public ClearEditTextView(@NonNull Context context) {
         this(context, null);
     }
 
-    public ClearableEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ClearEditTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ClearableEditText(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ClearEditTextView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         Drawable clearDrawable = null;
         int maxEms = 0;
 
         if (null != attrs) {
-            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ClearableEditText);
+            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ClearEditTextView);
 
-            clearDrawable = array.getDrawable(R.styleable.ClearableEditText_clearDrawable);
-            maxEms = array.getInteger(R.styleable.ClearableEditText_maxEms, -1);
+            clearDrawable = array.getDrawable(R.styleable.ClearEditTextView_clearDrawable);
+            maxEms = array.getInteger(R.styleable.ClearEditTextView_maxEms, -1);
             array.recycle();
         }
 

@@ -1,4 +1,4 @@
-package com.wyn88.resend;
+package com.wyn88.resend.utils;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
  * Created by zxj on 2/8/2018.
  */
 
-public final class Counter {
+public final class ResendCounter {
 
     private final Listener listener;
 
@@ -29,10 +29,9 @@ public final class Counter {
             next();
         }
     };
-    ;
 
-    private Counter(@NonNull Handler handler, int start, int end, int step, int interval,
-                    @NonNull Listener listener) {
+    private ResendCounter(@NonNull Handler handler, int start, int end, int step, int interval,
+                          @NonNull Listener listener) {
         this.handler = handler;
         this.listener = listener;
         this.start = start;
@@ -47,14 +46,14 @@ public final class Counter {
         }
     }
 
-    public static Counter create(int start, int end, int step, int interval,
-                                 @NonNull Listener listener) {
-        return new Counter(new Handler(Looper.getMainLooper()), start, end, step, interval, listener);
+    public static ResendCounter create(int start, int end, int step, int interval,
+                                       @NonNull Listener listener) {
+        return new ResendCounter(new Handler(Looper.getMainLooper()), start, end, step, interval, listener);
     }
 
-    public static Counter create(@NonNull Handler handler, int start, int end, int step, int interval,
-                                 @NonNull Listener listener) {
-        return new Counter(handler, start, end, step, interval, listener);
+    public static ResendCounter create(@NonNull Handler handler, int start, int end, int step, int interval,
+                                       @NonNull Listener listener) {
+        return new ResendCounter(handler, start, end, step, interval, listener);
     }
 
     public void start() {

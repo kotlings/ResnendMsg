@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.wyn88.resend.imp.Conditions;
+import com.wyn88.resend.imp.ICondition;
 import com.wyn88.resend.R;
 
 /**
@@ -50,7 +50,7 @@ public class ViewStateHelper {
      * @param controller
      * @param editTexts
      */
-    public static void addStateController(final View view, final Conditions controller, EditText... editTexts) {
+    public static void addStateController(final View view, final ICondition controller, EditText... editTexts) {
         view.setClickable(false);
         if (view.getBackground() != null)
 //            view.getBackground().setLevel(view.getResources().getInteger(R.integer.disable_level));
@@ -83,7 +83,7 @@ public class ViewStateHelper {
      * @param controller
      * @param editTexts
      */
-    public static void addStateControllerBt(final Context context, final TextView view, final int select, final int unSelect, final Conditions controller, EditText... editTexts) {
+    public static void addStateControllerBt(final Context context, final TextView view, final int select, final int unSelect, final ICondition controller, EditText... editTexts) {
         view.setClickable(false);
         if (view.getBackground() != null)
             view.setEnabled(false);

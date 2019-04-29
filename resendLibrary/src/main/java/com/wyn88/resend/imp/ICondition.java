@@ -5,7 +5,7 @@ package com.wyn88.resend.imp;
  * @Auther: zxj
  * @Date: 2019-04-26 15:01
  */
-public interface Conditions {
+public interface ICondition {
 
     boolean checkState();
 }

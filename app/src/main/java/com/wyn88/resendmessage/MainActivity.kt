@@ -7,9 +7,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.wyn88.resend.ResendControl
-import com.wyn88.resend.imp.Conditions
+import com.wyn88.resend.imp.ICondition
 import com.wyn88.resend.utils.ViewStateHelper
-import com.wyn88.resend.weight.ClearableEditText
+import com.wyn88.resend.weight.ClearEditTextView
 import com.wyn88.resendmessage.weight.HttpingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,12 +20,12 @@ import kotlinx.android.synthetic.main.activity_main.*
  *
  */
 
-class MainActivity : AppCompatActivity(), Conditions {
+class MainActivity : AppCompatActivity(), ICondition {
 
     private val TAG = "MainActivity"
 
-    private lateinit var etPhone: ClearableEditText
-    private lateinit var edtCode: ClearableEditText
+    private lateinit var etPhone: ClearEditTextView
+    private lateinit var edtCode: ClearEditTextView
     private lateinit var tvSend: TextView
     private lateinit var tvNext: TextView
     private var httpDialog: HttpingDialog? = null
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), Conditions {
             this,
             etPhone.editText
         )
-
+        resendControl = ResendControl(tvSend, etPhone.editText)
         initEvent()
     }
 
@@ -91,24 +91,45 @@ class MainActivity : AppCompatActivity(), Conditions {
             }
             getData()
         }
+
+        etPhone.setCallBack {
+
+            //TODO 判断是否在倒计时
+            if (!resendControl!!.isCountDown) {
+                tvSend.text = "获取验证码"
+            }
+        }
+
     }
 
+
+    //网络请求部分
     private fun getData() {
         httpDialog = HttpingDialog(this, false)
         httpDialog!!.show()
         handler.sendEmptyMessageDelayed(HINT_DIALOG, 3000)
     }
 
+
     private fun setCountDown() {
-        resendControl = ResendControl(tvSend, etPhone.editText)
         resendControl!!.startCountDown()
     }
 
 
     override fun checkState(): Boolean {
         val smsCode = etPhone.text.toString()
+        resendControl!!.checkStyle()
+
+        if (resendControl!!.isCountDown) {
+            return false
+        }
         return smsCode.isNotEmpty()
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        resendControl!!.clear()
+    }
 
 }

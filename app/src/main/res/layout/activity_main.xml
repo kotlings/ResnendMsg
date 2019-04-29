@@ -15,7 +15,7 @@
 			android:paddingRight="25dp">
 		
 		
-		<com.wyn88.resend.weight.ClearableEditText
+		<com.wyn88.resend.weight.ClearEditTextView
 				android:id="@+id/edtPhone"
 				android:layout_width="match_parent"
 				android:layout_height="44dp"
@@ -39,7 +39,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal">
 			
-			<com.wyn88.resend.weight.ClearableEditText
+			<com.wyn88.resend.weight.ClearEditTextView
 					android:id="@+id/edtCode"
 					android:layout_width="0dp"
 					android:layout_height="55dp"
